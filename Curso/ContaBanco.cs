@@ -9,14 +9,14 @@ namespace Course
         private double saldo;
         private bool status;
         
-        public string abrirConta(string Abrir)
+        public void abrirConta(string Abrir)
         {
             if (Abrir == "Sim" && status != true)
             {
                 setnumConta();
-                setstatus(true);                
+                setstatus(true);
                 Console.WriteLine("Qual tipo de conta? Conta Corrente(CC) ou Conta Poupança(CP)");
-                setTipo(Console.ReadLine()); 
+                setTipo(Console.ReadLine());
                 if (tipo == "ContaCorrente")
                 {
                     setSaldo(50.0);
@@ -25,29 +25,45 @@ namespace Course
                 {
                     setSaldo(150.0);
                 }
-            }
+            }            
             
-            return Abrir;
         }
 
        /* public string fecharConta()
         {
 
         }
+
         public double depositar()
         {
 
         }*/
 
-        public double sacar()
+        public void sacar()
         {
-            Console.WriteLine("Quanto deseja sacar?");
-            double.Parse(Console.ReadLine());
-            saldo = saldo - sacar();
-            return saldo;
+            Console.WriteLine("Deseja fazer um saque?");
+            string Sacar = Console.ReadLine();
+            if (Sacar == "Sim" && status != false) 
+            {
+                Console.WriteLine("Digite o valor do saque: ");
+                double saque = double.Parse(Console.ReadLine());
+                if (saldo >= saque) 
+                {
+                    saldo = saldo - saque;
+                }  
+                else
+                {
+                    Console.WriteLine("Saldo insuficiente.");
+                    Console.WriteLine("Seu saldo atual é: ", getSaldo().ToString("F2"));
+                }                
+            } 
+            else
+            {
+                Console.WriteLine("Conta inexistente.");
+            }
         }
 
-        public double pagarMensal()
+        public void pagarMensal()
         {
             if(tipo == "ContaCorrente")
             {
@@ -56,8 +72,7 @@ namespace Course
             else if(tipo == "ContaPoupança")
             {
                 saldo = saldo - 20.00;
-            }
-            return saldo;
+            }            
         }
 
         public int getnumConta()
